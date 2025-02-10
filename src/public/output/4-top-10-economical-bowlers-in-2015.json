@@ -1,0 +1,62 @@
+[
+  {
+    "bowler": "RN ten Doeschate",
+    "balls": 6,
+    "runs": 4,
+    "economy": 4
+  },
+  {
+    "bowler": "J Yadav",
+    "balls": 42,
+    "runs": 29,
+    "economy": 4.14
+  },
+  {
+    "bowler": "V Kohli",
+    "balls": 11,
+    "runs": 10,
+    "economy": 5.45
+  },
+  {
+    "bowler": "R Ashwin",
+    "balls": 234,
+    "runs": 228,
+    "economy": 5.85
+  },
+  {
+    "bowler": "S Nadeem",
+    "balls": 42,
+    "runs": 43,
+    "economy": 6.14
+  },
+  {
+    "bowler": "Parvez Rasool",
+    "balls": 30,
+    "runs": 31,
+    "economy": 6.2
+  },
+  {
+    "bowler": "MC Henriques",
+    "balls": 150,
+    "runs": 158,
+    "economy": 6.32
+  },
+  {
+    "bowler": "Z Khan",
+    "balls": 145,
+    "runs": 156,
+    "economy": 6.46
+  },
+  {
+    "bowler": "MA Starc",
+    "balls": 258,
+    "runs": 291,
+    "economy": 6.77
+  },
+  {
+    "bowler": "GB Hogg",
+    "balls": 126,
+    "runs": 144,
+    "economy": 6.86
+  }
+]
