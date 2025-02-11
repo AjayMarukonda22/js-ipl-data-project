@@ -5,34 +5,28 @@ let deliveries = require("../data/deliver.json");
 const matchesPlayedInYear = (matches, year) => {
     if(!matches || !Array.isArray(matches) || !year || isNaN(year))
         return "invalid input";
-    let set = new Set();
-     for(let match of matches) {
-        if(match.season == year)
-            set.add(match.id);
-     }
-     return set;
+
+    return matches.reduce((acc, curr) => {
+           if(curr.season == year)
+               acc.add(curr.id);
+            return acc;
+    }, new Set());
 }
 
 const extraRunsConcededPerTeamInYear = (deliveries, matchesPlayedSet) => {
     if(!deliveries || !Array.isArray(deliveries) || !matchesPlayedSet)
         return "invalid input";
 
-    let extraRunsPerTeam = {};
-
-        for(let delivery of deliveries) {
-
-            let matchId = delivery.match_id;
-            if(matchesPlayedSet.has(matchId)) {
-
-                let team = delivery.bowling_team;
-                let extraRuns = parseInt((delivery.extra_runs));
-                  
-                if(extraRuns != 0)
-               extraRunsPerTeam[team] = (extraRunsPerTeam[team] || 0) + extraRuns;
-            }
-        }
-
-    return extraRunsPerTeam;        
+        return deliveries.filter((delivery) => matchesPlayedSet.has(delivery.match_id))
+                        .reduce((acc, currDelivery) => {
+                            let team = currDelivery.bowling_team;
+                            let extraRuns = parseInt((currDelivery.extra_runs));
+                              
+                            if(extraRuns != 0)
+                           acc[team] = (acc[team] || 0) + extraRuns; 
+                        return acc;
+                        }, {});
+        
 }
 
 let matchesPlayedSet = matchesPlayedInYear(matches, 2016);
