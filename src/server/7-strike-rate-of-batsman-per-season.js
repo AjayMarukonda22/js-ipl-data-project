@@ -37,34 +37,37 @@ const strikeRateOfBatsmanPerSeason = (deliveries, matchIdsPerSeasonSet, seasonOf
      if(!deliveries || !Array.isArray(deliveries) || !matchIdsPerSeasonSet || !seasonOfTheMatch)
         return "invalid input";
         
-     let output = {};
-        for(let delivery of deliveries) {
+     let output = deliveries.reduce((acc, delivery) => {
+
             let matchId = delivery.match_id;
             let batsman = delivery.batsman;
             if((batsman).toLowerCase() !== (playerName).toLowerCase()) {
-                continue;
+                return acc;
             }
 
             let batsmanRuns = parseInt(delivery.batsman_runs);
             let extraRuns = parseInt(delivery.extra_runs);
 
             let season = seasonOfTheMatch(matchId, matchIdsPerSeasonSet);
-            if(!output[season]) 
-                output[season] = {};
+            if(!acc[season]) 
+                acc[season] = {};
 
-            let seasonObject = output[season];
-              if(!seasonObject[batsman]) {
-                seasonObject[batsman] = {
+            let playerObject = acc[season];
+              if(!playerObject[batsman]) {
+                playerObject[batsman] = {
                     balls: 0,
                     runs: 0
                 };
             }
 
-            let playerObject = seasonObject[batsman];
+            let statsObject = playerObject[batsman];
            if(extraRuns === 0)
-            playerObject.balls += 1;
-            playerObject.runs += batsmanRuns;
-        }
+            statsObject.balls += 1;
+            statsObject.runs += batsmanRuns;
+
+            return acc;
+     }, {});
+        
 
         for(let year in output) {
             let iplSeason = output[year];
