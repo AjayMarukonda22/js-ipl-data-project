@@ -84,6 +84,6 @@ let seasonSetResult = matchesPerseason(matches);
 let result = (strikeRateOfBatsmanPerSeason(deliveries, seasonSetResult, seasonOfTheMatch, "PA patel"));
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "../public/output/7-strike-rate-of-batsman-per-season.json";
+const outputFile = "./src/public/output/7-strike-rate-of-batsman-per-season.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
 

@@ -34,7 +34,7 @@ let result = extraRunsConcededPerTeamInYear(deliveries, matchesPlayedSet);
 
 let jsonResult = JSON.stringify(result, null, 2);
 
- const outputFile = "../public/output/3-extra-runs-conceded-per-team.json";
+ const outputFile = "./src/public/output/3-extra-runs-conceded-per-team.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
 
 

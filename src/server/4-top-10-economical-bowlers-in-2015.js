@@ -55,5 +55,5 @@ let matchesPlayedSet = matchesPlayedInYear(matches, 2015);
 let result = topTenEconomicalBowlersInYear(deliveries, matchesPlayedSet);
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "../public/output/4-top-10-economical-bowlers-in-2015.json";
+const outputFile = "./src/public/output/4-top-10-economical-bowlers-in-2015.json";
 fs.writeFileSync(outputFile, jsonResult, 'utf8');

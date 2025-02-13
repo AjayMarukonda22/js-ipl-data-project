@@ -40,5 +40,5 @@ const bestEconomicalBowlerInSuperOvers = (deliveries) => {
 let result = bestEconomicalBowlerInSuperOvers(deliveries);
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "../public/output/9-best-economical-player-in-super-overs.json";
+const outputFile = "./src/public/output/9-best-economical-player-in-super-overs.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');          

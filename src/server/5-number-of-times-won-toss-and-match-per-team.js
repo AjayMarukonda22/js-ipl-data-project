@@ -17,5 +17,5 @@ let result = numberOfTimesWonTossAndMatch(matches);
 let jsonResult = JSON.stringify(result, null, 2);
 
 
- const outputFile = "../public/output/5-number-of-times-won-toss-and-match-per-team.json";
+ const outputFile = "./src/public/output/5-number-of-times-won-toss-and-match-per-team.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
