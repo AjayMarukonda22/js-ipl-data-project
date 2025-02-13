@@ -25,5 +25,5 @@ let result = matchesWonPerTeamPerYear(data);
 
 let jsonResult = JSON.stringify(result, null, 2);
 
- const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/2-matches-won-per-team-per-year.json";
+ const outputFile = "../public/output/2-matches-won-per-team-per-year.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');

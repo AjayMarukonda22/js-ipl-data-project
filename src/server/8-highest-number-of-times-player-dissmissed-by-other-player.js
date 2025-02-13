@@ -42,6 +42,6 @@ return [...output]
 let result = mostDismissalsOfOnePlayerByTheOther(deliveries);
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/8-highest-number-of-times-player-dismissed-by-other-player.json";
+const outputFile = "../public/output/8-highest-number-of-times-player-dismissed-by-other-player.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
 

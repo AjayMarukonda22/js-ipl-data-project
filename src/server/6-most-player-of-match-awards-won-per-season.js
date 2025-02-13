@@ -44,5 +44,5 @@ const mostPlayerOfMatchAwardsPerSeason = (matches) => {
 let result = mostPlayerOfMatchAwardsPerSeason(matches);
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/6-most-player-of-match-awards-per-season.json";
+const outputFile = "../public/output/6-most-player-of-match-awards-per-season.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
