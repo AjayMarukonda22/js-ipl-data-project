@@ -4,23 +4,23 @@ let matches = require("../data/matches.json");
 const mostPlayerOfMatchAwardsPerSeason = (matches) => {
     if(!matches || !Array.isArray(matches))
         return "invalid input";
-
-    let playerOfMatchAwards = matches.reduce((acc, curr) => {
-           let season = curr.season;
-           let playerName = curr.player_of_match;
+    
+    let playerOfMatchAwards = {};
+           for(let match of matches) {
+           let season = match.season;
+           let playerName = match.player_of_match;
           
-           if(!acc[season])
-            acc[season] = new Map();
+           if(!playerOfMatchAwards[season])
+              playerOfMatchAwards[season] = new Map();
 
-           let playerMap = acc[season];
+           let playerMap = playerOfMatchAwards[season];
 
            if(playerMap.has(playerName))
             playerMap.set(playerName, playerMap.get(playerName) + 1);
             else
             playerMap.set(playerName, 1);
 
-        return acc;
-    }, {});
+    }
     
     let output = {};
     for(let key in playerOfMatchAwards) {
@@ -28,15 +28,15 @@ const mostPlayerOfMatchAwardsPerSeason = (matches) => {
 
         let sortedPlayers = [...seasonMap].sort((a, b) => b[1] - a[1]);
         let highestCount = sortedPlayers[0][1];
-
-        let topPlayers = sortedPlayers
-                        .filter(([ ,count]) => count === highestCount)
-                        .map(([playerName, count]) => ({
-                         playerName: playerName,
-                         PlayerofTheMatchCount: count
-                          }));
-                         
-             output[key] = topPlayers;             
+          
+        let topPlayersArray = [];
+        for(let topPlayer of sortedPlayers) {
+               if(topPlayer[1] === highestCount) {
+                topPlayersArray.push({playerName : topPlayer[0], playerOfTheMatchCount : topPlayer[1]});
+               }
+            
+        }
+        output[key] = topPlayersArray;
     }
     return output;    
 }
@@ -44,5 +44,5 @@ const mostPlayerOfMatchAwardsPerSeason = (matches) => {
 let result = mostPlayerOfMatchAwardsPerSeason(matches);
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/6-most-player-of-match-awards-per-season.json";
+const outputFile = "./src/public/output/6-most-player-of-match-awards-per-season.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');

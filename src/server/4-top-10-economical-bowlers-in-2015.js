@@ -37,16 +37,17 @@ const topTenEconomicalBowlersInYear = (deliveries, matchesPlayedSet) => {
         bowlerEconomy[bowler].runs += totalRuns;
     }
 
-    let sortedBowlers = Object.entries(bowlerEconomy)
-                        .map(([bowler, stats]) => ({
-                            bowler,
-                            balls: stats.balls, 
-                            runs: stats.runs, 
-                            economy: Math.round( ((stats.runs/stats.balls) * 6) * 100)/ 100 }))
+     let bowlersArray = [];
+
+     for(let bowler in bowlerEconomy) {
+        let stats = bowlerEconomy[bowler];
+        let economy = Math.round(((stats.runs/stats.balls) * 6) * 100) / 100;
+        bowlersArray.push({bowler, balls : stats.balls, runs : stats.runs, economy : economy});
+     }
+     
+     return bowlersArray
                         .sort((a, b) => a.economy - b.economy)
                         .slice(0, 10);
-
-        return sortedBowlers;
 
 }
 
@@ -54,5 +55,5 @@ let matchesPlayedSet = matchesPlayedInYear(matches, 2015);
 let result = topTenEconomicalBowlersInYear(deliveries, matchesPlayedSet);
 let jsonResult = JSON.stringify(result, null, 2);
 
- const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/4-top-10-economical-bowlers-in-2015.json";
- fs.writeFileSync(outputFile, jsonResult, 'utf8');
+const outputFile = "./src/public/output/4-top-10-economical-bowlers-in-2015.json";
+fs.writeFileSync(outputFile, jsonResult, 'utf8');

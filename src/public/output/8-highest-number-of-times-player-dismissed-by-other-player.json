@@ -1,7 +1,5 @@
-[
-  {
-    "batsman": "MS Dhoni",
-    "bowler": "Z Khan",
-    "dismissalCount": 7
-  }
-]
+{
+  "batsman": "MS Dhoni",
+  "bowler": "Z Khan",
+  "dismissalCount": 7
+}

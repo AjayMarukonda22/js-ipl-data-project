@@ -5,43 +5,46 @@ const mostDismissalsOfOnePlayerByTheOther = (deliveries) => {
             if(!deliveries || !Array.isArray(deliveries))
               return "invalid input";
           
-    let output = deliveries.reduce((acc, curr) => {
-             let batsman = curr.batsman;
-             let bowler = curr.bowler;
-             let playerDismissed = curr.player_dismissed;
-             let dismissalType = curr.dismissal_kind;
+    let output = new Map();
+         for(let delivery of deliveries) {
+
+             let batsman = delivery.batsman;
+             let bowler = delivery.bowler;
+             let playerDismissed = delivery.player_dismissed;
+             let dismissalType = delivery.dismissal_kind;
 
              if(dismissalType === "run out" || !playerDismissed)
-                return acc;
+                continue;
 
              let key = batsman + "-" + bowler;
-            if(!acc.has(key)) {
+            if(!output.has(key)) {
 
                 let dismissalObject = {
                     batsman: batsman,
                     bowler: bowler,
                     dismissalCount: 1
                 }
-                acc.set(key, dismissalObject);
+                output.set(key, dismissalObject);
             }
             else {
-                let dismissalObject = acc.get(key);
+                let dismissalObject = output.get(key);
                 dismissalObject.dismissalCount += 1;
             }
-            return acc;
 
-    }, new Map());
+    }
 
-return [...output]
+let result =  [...output]
        .sort(([ , objectA], [ , objectB]) => objectB.dismissalCount - objectA.dismissalCount)
-       .slice(0, 1)
-       .map((player) => player[1]);
+       .slice(0, 1);
+
+    const [[ , dissmissal]]  = result;
+    return dissmissal;
 
 }
 
 let result = mostDismissalsOfOnePlayerByTheOther(deliveries);
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/8-highest-number-of-times-player-dismissed-by-other-player.json";
- fs.writeFileSync(outputFile, jsonResult, 'utf8');
+const outputFile = "./src/public/output/8-highest-number-of-times-player-dissmissed-by-other-player.json";
+fs.writeFileSync(outputFile, jsonResult, 'utf8');
 

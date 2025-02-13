@@ -40,7 +40,7 @@ let result = extraRunsConcededPerTeamInYear(deliveries, matchesPlayedSet);
 
 let jsonResult = JSON.stringify(result, null, 2);
 
- const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/3-extra-runs-conceded-per-team.json";
+ const outputFile = "./src/public/output/3-extra-runs-conceded-per-team.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
 
 

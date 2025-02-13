@@ -6,19 +6,18 @@ let deliveries = require("../data/deliver.json");
 const matchesPerseason = (matches) => {
     if(!matches || !Array.isArray(matches))
         return "invalid input";
+     let seasonSet = {};
+      for(let match of matches) {
+            let season = match.season;
+            let matchId = match.id;
 
-     return matches.reduce((acc, curr) => {
-            let season = curr.season;
-            let matchId = curr.id;
-
-            if(!acc[season]) {
-                acc[season] = new Set();
+            if(!seasonSet[season]) {
+                seasonSet[season] = new Set();
             }
             
-         acc[season].add(matchId);
-           
-            return acc;
-     }, {})
+         seasonSet[season].add(matchId);
+     }
+     return seasonSet;
 }
 
 const seasonOfTheMatch = (matchId, matchIdsPerSeason) => {
@@ -81,6 +80,6 @@ let seasonSetResult = matchesPerseason(matches);
 let result = (strikeRateOfBatsmanPerSeason(deliveries, seasonSetResult, seasonOfTheMatch, "PA patel"));
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/7-strike-rate-of-batsman-per-season.json";
+const outputFile = "./src/public/output/7-strike-rate-of-batsman-per-season.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
 

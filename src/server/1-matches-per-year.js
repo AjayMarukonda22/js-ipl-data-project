@@ -1,19 +1,22 @@
 const fs = require('fs');
 let data = require("../data/matches.json");
 
-const matchesPlayedPerYear = (data) => {
+const matchesPlayedPerYear = (matches) => {
     if(!data || !Array.isArray(data))
         return "invalid input";
 
-    return data.reduce((acc, curr) => {
-        acc[curr.season] = (acc[curr.season] || 0) + 1;
-        return acc;
-    }, {});
+      let output = {};
+         for(let match of matches) {
+            let season = match.season;
+        output[season] = (output[season] || 0) + 1;
+         }
+
+        return output;
 }
 
  let result = matchesPlayedPerYear(data);
  let jsonResult = JSON.stringify(result, null, 2);
   
- const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/1-matches-per-year.json";
+ const outputFile = "./src/public/output/1-matches-per-year.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
  

@@ -25,19 +25,21 @@ const bestEconomicalBowlerInSuperOvers = (deliveries) => {
         bowlerEconomy[bowler].runs += totalRuns;
     }
 
-    let sortedBowlers = Object.entries(bowlerEconomy)
-                        .map(([bowler, stats]) => ({
-                            bowler,
-                            balls: stats.balls, 
-                            runs: stats.runs, 
-                            economy: Math.round( ((stats.runs/stats.balls) * 6) * 100)/ 100 }))
-                        .sort((a, b) => a.economy - b.economy)
-                        .slice(0, 1);
+    let bowlersArray = [];
 
-        return sortedBowlers;
+    for(let bowler in bowlerEconomy) {
+       let stats = bowlerEconomy[bowler];
+       let economy = Math.round(((stats.runs/stats.balls) * 6) * 100) / 100;
+       bowlersArray.push({bowler, balls : stats.balls, runs : stats.runs, economy : economy});
+    }
+    
+    return bowlersArray
+                       .sort((a, b) => a.economy - b.economy)
+                       .slice(0, 1);
+
 }
 let result = bestEconomicalBowlerInSuperOvers(deliveries);
 let jsonResult = JSON.stringify(result, null, 2);
 
-const outputFile = "/home/ajay/js-ipl-data-project/src/public/output/9-best-economical-player-in-super-overs.json";
- fs.writeFileSync(outputFile, jsonResult, 'utf8');          
+const outputFile = "./src/public/output/9-best-economical-player-in-super-overs.json";
+ fs.writeFileSync(outputFile, jsonResult, 'utf8'); 
