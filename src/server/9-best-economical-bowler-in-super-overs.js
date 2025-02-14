@@ -5,26 +5,24 @@ const bestEconomicalBowlerInSuperOvers = (deliveries) => {
     if(!deliveries || !Array.isArray(deliveries))
         return "invalid input";
 
-    let bowlerEconomy = deliveries.reduce((acc, delivery) => {
-       let isSuperOver = delivery.is_super_over;
-        if(isSuperOver === "0")
-            return acc;
+    let bowlerEconomy = deliveries.filter((delivery) => delivery.is_super_over !== "0")
+                                  .reduce((acc, delivery) => {
 
-        let bowler = delivery.bowler;
-        let countlessRuns = (parseInt(delivery.bye_runs) + parseInt(delivery.legbye_runs) + parseInt(delivery.penalty_runs))
-        let totalRuns = parseInt(delivery.total_runs) - countlessRuns;
+               let bowler = delivery.bowler;
+               let countlessRuns = (parseInt(delivery.bye_runs) + parseInt(delivery.legbye_runs) + parseInt(delivery.penalty_runs))
+               let totalRuns = parseInt(delivery.total_runs) - countlessRuns;
          
-        if(!acc[bowler]) {
-           acc[bowler] = {balls : 0, runs : 0};
-        }
+               if(!acc[bowler]) {
+               acc[bowler] = {balls : 0, runs : 0};
+                }
 
-        if(delivery.wide_runs === "0" && delivery.noball_runs === "0")
-            acc[bowler].balls += 1;
+             if(delivery.wide_runs === "0" && delivery.noball_runs === "0")
+                      acc[bowler].balls += 1;
 
-        acc[bowler].runs += totalRuns;
+                acc[bowler].runs += totalRuns;
 
-        return acc;
-    }, {});
+            return acc;
+             }, {});
 
     let sortedBowlers = Object.entries(bowlerEconomy)
                         .map(([bowler, stats]) => ({
