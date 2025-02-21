@@ -3,7 +3,7 @@ let deliveries = require("../data/deliver.json");
 
 const mostDismissalsOfOnePlayerByTheOther = (deliveries) => {
             if(!deliveries || !Array.isArray(deliveries))
-              return "invalid input";
+                throw new Error("Invalid input");
           
     let output = deliveries.reduce((acc, curr) => {
              let batsman = curr.batsman;
@@ -39,9 +39,15 @@ return [...output]
 
 }
 
+
+try {
 let result = mostDismissalsOfOnePlayerByTheOther(deliveries);
 let jsonResult = JSON.stringify(result, null, 2);
 
 const outputFile = "./src/public/output/8-highest-number-of-times-player-dismissed-by-other-player.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
+}
+catch(err) {
+    console.error(err);
+}
 

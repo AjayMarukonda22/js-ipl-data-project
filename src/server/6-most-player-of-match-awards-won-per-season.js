@@ -3,7 +3,7 @@ let matches = require("../data/matches.json");
 
 const mostPlayerOfMatchAwardsPerSeason = (matches) => {
     if(!matches || !Array.isArray(matches))
-        return "invalid input";
+        throw new Error("Invalid input");
 
     let playerOfMatchAwards = matches.reduce((acc, curr) => {
            let season = curr.season;
@@ -41,8 +41,14 @@ const mostPlayerOfMatchAwardsPerSeason = (matches) => {
     return output;    
 }
 
+
+try {
 let result = mostPlayerOfMatchAwardsPerSeason(matches);
 let jsonResult = JSON.stringify(result, null, 2);
 
 const outputFile = "./src/public/output/6-most-player-of-match-awards-per-season.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
+}
+catch(err) {
+    console.error(err);
+}

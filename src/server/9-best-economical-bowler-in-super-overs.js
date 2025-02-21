@@ -3,7 +3,7 @@ let deliveries = require("../data/deliver.json");
 
 const bestEconomicalBowlerInSuperOvers = (deliveries) => {
     if(!deliveries || !Array.isArray(deliveries))
-        return "invalid input";
+        throw new Error("Invalid input");
 
     let bowlerEconomy = deliveries.filter((delivery) => delivery.is_super_over !== "0")
                                   .reduce((acc, delivery) => {
@@ -35,8 +35,14 @@ const bestEconomicalBowlerInSuperOvers = (deliveries) => {
 
         return sortedBowlers;
 }
+
+try {
 let result = bestEconomicalBowlerInSuperOvers(deliveries);
 let jsonResult = JSON.stringify(result, null, 2);
 
 const outputFile = "./src/public/output/9-best-economical-player-in-super-overs.json";
- fs.writeFileSync(outputFile, jsonResult, 'utf8');          
+ fs.writeFileSync(outputFile, jsonResult, 'utf8');   
+}
+catch(err) {
+    console.error(err);
+}       

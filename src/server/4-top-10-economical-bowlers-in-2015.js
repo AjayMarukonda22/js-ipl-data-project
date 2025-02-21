@@ -4,7 +4,7 @@ let deliveries = require('../data/deliver.json');
 
 const matchesPlayedInYear = (matches, year) => {
     if(!matches || !Array.isArray(matches) || !year || isNaN(year))
-        return "invalid input";
+        throw new Error("Invalid input");
 
     return matches.reduce((acc, curr) => {
         if(curr.season == year)
@@ -17,7 +17,7 @@ const matchesPlayedInYear = (matches, year) => {
 
 const topTenEconomicalBowlersInYear = (deliveries, matchesPlayedSet) => {
     if(!deliveries || !Array.isArray(deliveries) || !matchesPlayedSet)
-        return "invalid input";
+         throw new Error("Invalid input");
 
     let bowlerEconomy = deliveries.filter((delivery) => matchesPlayedSet.has(delivery.match_id))
                                   .reduce((acc, currDelivery) => {
@@ -51,9 +51,15 @@ const topTenEconomicalBowlersInYear = (deliveries, matchesPlayedSet) => {
 
 }
 
+
+try{
 let matchesPlayedSet = matchesPlayedInYear(matches, 2015);
 let result = topTenEconomicalBowlersInYear(deliveries, matchesPlayedSet);
 let jsonResult = JSON.stringify(result, null, 2);
 
 const outputFile = "./src/public/output/4-top-10-economical-bowlers-in-2015.json";
 fs.writeFileSync(outputFile, jsonResult, 'utf8');
+}
+catch(err) {
+    console.error(err);
+}

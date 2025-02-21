@@ -3,7 +3,7 @@ let data = require("../data/matches.json");
 
 const matchesWonPerTeamPerYear = (data) => {
        if(!data || !Array.isArray(data))
-        return "invalid input";
+        throw new Error("invalid input");
 
        return data.reduce((acc, curr) => {
         if(!curr.winner)
@@ -21,9 +21,15 @@ const matchesWonPerTeamPerYear = (data) => {
     , {});
 }        
 
+
+try {
 let result = matchesWonPerTeamPerYear(data);
 
 let jsonResult = JSON.stringify(result, null, 2);
 
  const outputFile = "./src/public/output/2-matches-won-per-team-per-year.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
+}
+catch(err) {
+    console.error(err);
+}

@@ -4,7 +4,7 @@ let deliveries = require("../data/deliver.json");
 
 const matchesPlayedInYear = (matches, year) => {
     if(!matches || !Array.isArray(matches) || !year || isNaN(year))
-        return "invalid input";
+        throw new Error("invalid input");
 
     return matches.reduce((acc, curr) => {
            if(curr.season == year)
@@ -15,7 +15,7 @@ const matchesPlayedInYear = (matches, year) => {
 
 const extraRunsConcededPerTeamInYear = (deliveries, matchesPlayedSet) => {
     if(!deliveries || !Array.isArray(deliveries) || !matchesPlayedSet)
-        return "invalid input";
+           throw new Error("invalid input");
 
         return deliveries.filter((delivery) => matchesPlayedSet.has(delivery.match_id))
                         .reduce((acc, currDelivery) => {
@@ -29,6 +29,7 @@ const extraRunsConcededPerTeamInYear = (deliveries, matchesPlayedSet) => {
         
 }
 
+try {
 let matchesPlayedSet = matchesPlayedInYear(matches, 2016);
 let result = extraRunsConcededPerTeamInYear(deliveries, matchesPlayedSet);
 
@@ -36,5 +37,9 @@ let jsonResult = JSON.stringify(result, null, 2);
 
  const outputFile = "./src/public/output/3-extra-runs-conceded-per-team.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
+}
+catch(err) {
+    console.error(err);
+}
 
 
