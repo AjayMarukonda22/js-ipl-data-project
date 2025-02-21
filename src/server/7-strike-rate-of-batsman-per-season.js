@@ -5,7 +5,7 @@ let deliveries = require("../data/deliver.json");
 
 const matchesPerseason = (matches) => {
     if(!matches || !Array.isArray(matches))
-        return "invalid input";
+        throw new Error("Invalid input");
      let seasonSet = {};
       for(let match of matches) {
             let season = match.season;
@@ -22,7 +22,7 @@ const matchesPerseason = (matches) => {
 
 const seasonOfTheMatch = (matchId, matchIdsPerSeason) => {
     if(!matchId || !matchIdsPerSeason)
-        return "invalid input";
+        throw new Error("Invalid input");
 
     for(let season in matchIdsPerSeason) {
         let seasonSet = matchIdsPerSeason[season];
@@ -34,7 +34,7 @@ const seasonOfTheMatch = (matchId, matchIdsPerSeason) => {
 
 const strikeRateOfBatsmanPerSeason = (deliveries, matchIdsPerSeasonSet, seasonOfTheMatch, playerName) => {
      if(!deliveries || !Array.isArray(deliveries) || !matchIdsPerSeasonSet || !seasonOfTheMatch)
-        return "invalid input";
+        throw new Error("Invalid input");
         
      let output = {};
         for(let delivery of deliveries) {
@@ -76,10 +76,15 @@ const strikeRateOfBatsmanPerSeason = (deliveries, matchIdsPerSeasonSet, seasonOf
         return output;       
 }
 
+try {
 let seasonSetResult = matchesPerseason(matches);
-let result = (strikeRateOfBatsmanPerSeason(deliveries, seasonSetResult, seasonOfTheMatch, "PA patel"));
+let result = strikeRateOfBatsmanPerSeason(deliveries, seasonSetResult, seasonOfTheMatch, "PA patel");
 let jsonResult = JSON.stringify(result, null, 2);
 
 const outputFile = "./src/public/output/7-strike-rate-of-batsman-per-season.json";
  fs.writeFileSync(outputFile, jsonResult, 'utf8');
+}
+catch(err) {
+    console.error(err);
+}
 

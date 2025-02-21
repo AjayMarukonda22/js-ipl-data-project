@@ -3,7 +3,8 @@ let matches = require("../data/matches.json");
 
 const numberOfTimesWonTossAndMatch = (matches) => {
          if(!matches || !Array.isArray(matches))
-            return "invalid input";
+            throw new Error("Invalid input");
+        
       let output = {};
           for(let match of matches)  {
             let tossWinner = match.toss_winner;
@@ -15,8 +16,13 @@ const numberOfTimesWonTossAndMatch = (matches) => {
          return output;
 }
 
+try {
 let result = numberOfTimesWonTossAndMatch(matches);
 let jsonResult = JSON.stringify(result, null, 2);
 
 const outputFile = "./src/public/output/5-number-of-times-won-toss-and-match-per-team.json";
 fs.writeFileSync(outputFile, jsonResult, 'utf8');
+}
+catch(err) {
+    console.error(err);
+}
